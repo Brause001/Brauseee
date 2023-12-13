@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+   <title>Käufe</title>
+</head>
+<body>
+    
+    
+
+    <section id="order-details">
+        
+    </section>
+
+    <script>
+        
+        const storedOrderDetails = localStorage.getItem('orderDetails');
+
+        if (storedOrderDetails) {
+            const orderDetails = JSON.parse(storedOrderDetails);
+
+           
+            const orderDetailsSection = document.getElementById('order-details');
+            orderDetailsSection.innerHTML = `
+                <h2>Bestellcode: ${orderDetails.code}</h2>
+                <h3>Bestellte Artikel:</h3>
+                <ul>
+                    ${orderDetails.items.map(item => `<li>${item.name} - ${item.price}€</li>`).join('')}
+                </ul>
+                <p>Gesamtpreis: ${orderDetails.items.reduce((total, item) => total + item.price, 0).toFixed(2)}€</p>
+            `;
+        } else {
+           
+            const orderDetailsSection = document.getElementById('order-details');
+            orderDetailsSection.innerHTML = '<p>Keine Bestellung gefunden.</p>';
+        }
+    </script>
+</body>
+</html>
